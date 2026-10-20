@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schemas.macro-deck.app/plugin-manifest-v1.schema.json",
+  "manifestVersion": 1,
+  "id": "com.sarti2004.metronome",
+  "name": "Metronome",
+  "version": "1.0.0",
+  "description": "Simple metronome plugin for Macro Deck.",
+  "homepage": "https://github.com/Sarti2004/Metronome",
+  "repository": "https://github.com/Sarti2004/Metronome.git",
+  "icon": "Assets/icon.svg",
+  "entrypoints": {
+    "win-x64": {
+      "executable": "runtimes/win-x64/Metronome.exe"
+    },
+    "osx-arm64": {
+      "executable": "runtimes/osx-arm64/Metronome"
+    }
+  },
+  "publisher": {
+    "name": "Sarti2004"
+  },
+  "license": "MIT",
+  "compatibility": {
+    "macroDeck": ">=3.0.0-beta.14"
+  },
+  "ai": {
+    "interaction": false,
+    "generatedContent": false,
+    "generatedAssets": false,
+    "services": []
+  }
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- The default-language file. Every translation is checked against it and the fallback chain ends
+       here, so it is required even for a plugin that ships one language. Add a language by adding
+       Localization/Strings.<culture>.resx beside it (Strings.de.resx, Strings.pt-BR.resx).
+       A dotted key becomes a nested class: Widgets.Metronome.Name is Strings.Widgets.Metronome.Name(). -->
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Widgets.Metronome.Name" xml:space="preserve">
+    <value>Metronome</value>
+  </data>
+  <data name="Widgets.Metronome.Description" xml:space="preserve">
+    <value>Simple metronome for Macro deck</value>
+  </data>
+  <data name="Widgets.Metronome.Tap" xml:space="preserve">
+    <value>Tap</value>
+  </data>
+  <data name="Widgets.Metronome.Sound.Label" xml:space="preserve">
+    <value>Sound</value>
+  </data>
+  <data name="Widgets.Metronome.Sound.Description" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Widgets.Metronome.Sounds.Click" xml:space="preserve">
+    <value>Click</value>
+  </data>
+  <data name="Widgets.Metronome.Sounds.Woodblock" xml:space="preserve">
+    <value>Woodblock</value>
+  </data>
+  <data name="Widgets.Metronome.Sounds.Clave" xml:space="preserve">
+    <value>Clave</value>
+  </data>
+  <data name="Widgets.Metronome.Sounds.Beep" xml:space="preserve">
+    <value>Beep</value>
+  </data>
+  <data name="Widgets.Metronome.Sounds.Cowbell" xml:space="preserve">
+    <value>Cowbell</value>
+  </data>
+  <data name="Widgets.Metronome.Sounds.HiHat" xml:space="preserve">
+    <value>Hi-hat</value>
+  </data>
+</root>
