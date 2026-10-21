@@ -1,5 +1,6 @@
 {
   "version": 1,
+  "include": ["Assets/brushed-metal.jpg"],
   "targets": {
     "win-x64": {
       "executable": "dotnet",
