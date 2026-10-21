@@ -11,8 +11,7 @@
         "Release",
         "-r",
         "win-x64",
-        "--self-contained",
-        "false",
+        "-p:UseAppHost=false",
         "-o",
         "bin/publish/win-x64"
       ],
@@ -27,8 +26,7 @@
         "Release",
         "-r",
         "osx-arm64",
-        "--self-contained",
-        "false",
+        "-p:UseAppHost=false",
         "-o",
         "bin/publish/osx-arm64"
       ],

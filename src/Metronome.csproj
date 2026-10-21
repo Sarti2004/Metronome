@@ -6,6 +6,7 @@
         <!-- Silk.NET's OpenAL device and context handles are pointers. -->
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <UserSecretsId>Metronome-PluginDevelopment</UserSecretsId>
+        <TargetFrameworks>net10.0</TargetFrameworks>
     </PropertyGroup>
 
     <!-- Microsoft.NET.Sdk plus this framework reference, not Microsoft.NET.Sdk.Web: a plugin is a
