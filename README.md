@@ -9,6 +9,10 @@ A simple metronome widget for MacroDeck 3 with tap tempo, adjustable BPM, and cl
 - Visual beat indicator and slider-based tempo control
 - Choose from built-in click sounds in the widget settings
 
+## Actions
+- **Set tempo**: sets the tempo in BPM
+- **Start/stop metronome**: choose **Toggle**, **Start** or **Stop**.
+
 ## Installation
 
 1. Open Macro Deck on your PC.
