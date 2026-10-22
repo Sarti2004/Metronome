@@ -48,6 +48,7 @@ public sealed class MetronomeWidget : IDisposable
 	private readonly UiState<bool> _playing;
 	private readonly UiState<UiResource?> _beatImage = new(null);
 	private readonly Lock _beatImageGate = new();
+	private readonly Lock _controlGate = new();
 	private readonly List<long> _taps = new(MaxTapsAveraged);
 	private readonly Action<int> _tempoChanged;
 	private readonly ClickPlayer? _clickPlayer;
@@ -74,6 +75,8 @@ public sealed class MetronomeWidget : IDisposable
 		_playing = new UiState<bool>(playing);
 		_tempoChanged = tempoChanged;
 	}
+
+	public bool IsPlaying => _playing.Peek();
 
 	private double Level => (double)(_tempo.Value - MinTempo) / (MaxTempo - MinTempo);
 
@@ -454,6 +457,14 @@ public sealed class MetronomeWidget : IDisposable
 
 	private void Tap()
 	{
+		lock (_controlGate)
+		{
+			RecordTap();
+		}
+	}
+
+	private void RecordTap()
+	{
 		var now = Stopwatch.GetTimestamp();
 		if (_taps.Count > 0 && Stopwatch.GetElapsedTime(_taps[^1], now) > TapTimeout)
 		{
@@ -478,14 +489,41 @@ public sealed class MetronomeWidget : IDisposable
 
 	private void TogglePlaying()
 	{
-		if (_playing.Peek())
+		lock (_controlGate)
 		{
-			StopTicker();
-			HideBeatImage();
-			_playing.Value = false;
-			return;
+			SetPlaying(!_playing.Peek());
 		}
+	}
 
+	public void SetPlaying(bool playing)
+	{
+		lock (_controlGate)
+		{
+			if (playing == _playing.Peek())
+			{
+				return;
+			}
+
+			if (playing)
+			{
+				StartPlaying();
+			}
+			else
+			{
+				StopPlaying();
+			}
+		}
+	}
+
+	private void StopPlaying()
+	{
+		StopTicker();
+		HideBeatImage();
+		_playing.Value = false;
+	}
+
+	private void StartPlaying()
+	{
 		var ticker = new CancellationTokenSource();
 		Interlocked.Exchange(ref _ticker, ticker)?.Cancel();
 		_playing.Value = true;
@@ -578,11 +616,14 @@ public sealed class MetronomeWidget : IDisposable
 		Interlocked.Increment(ref _beatImageVersion);
 	}
 
-	private void SetManualTempo(int tempo)
+	public void SetManualTempo(int tempo)
 	{
-		_taps.Clear();
-		_tapping.Value = false;
-		SetTempo(tempo);
+		lock (_controlGate)
+		{
+			_taps.Clear();
+			_tapping.Value = false;
+			SetTempo(tempo);
+		}
 	}
 
 	private void SetTempo(int tempo)

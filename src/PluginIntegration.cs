@@ -9,6 +9,7 @@ using MacroDeck.Ui.Model.Resources;
 using MacroDeck.Ui.Model.Surfaces;
 using MacroDeck.Ui.Runtime;
 using MacroDeck.Ui.Widgets;
+using Metronome.Actions;
 using Serilog;
 
 namespace Metronome;
@@ -33,6 +34,7 @@ public sealed class PluginIntegration : IPluginIntegration, IWidgetTypeProvider,
 
 	private readonly ILogger _logger;
 	private readonly ConcurrentDictionary<Guid, int> _tempos = new();
+	private readonly ConcurrentDictionary<MetronomeWidget, byte> _openWidgets = new();
 	private readonly ClickPlayer _clickPlayer;
 	private readonly ImageGenerator _imageGenerator;
 	private volatile string? _metronomeTypeId;
@@ -45,9 +47,10 @@ public sealed class PluginIntegration : IPluginIntegration, IWidgetTypeProvider,
 		_logger = logger.ForContext<PluginIntegration>();
 		_clickPlayer = clickPlayer;
 		_imageGenerator = imageGenerator;
+		Actions = [new SetTempoAction(this), new StartStopAction(this)];
 	}
 
-	public IReadOnlyList<IActionDefinition> Actions { get; } = [];
+	public IReadOnlyList<IActionDefinition> Actions { get; }
 
 	public string ProviderName => "Metronome";
 
@@ -120,8 +123,18 @@ public sealed class PluginIntegration : IPluginIntegration, IWidgetTypeProvider,
 			_imageGenerator.GetAsync);
 
 		var root = widget.Build(_background, UiWidgetSafeArea.For(surface));
-		return Task.FromResult<IUiSession?>(new ViewSession(new UiView(surface, root), widget));
+		IDisposable owner = widget;
+		
+		if (surface.Kind == UiSurfaceKinds.Widget)
+		{
+			_openWidgets[widget] = 0;
+			owner = new OpenWidget(_openWidgets, widget);
+		}
+
+		return Task.FromResult<IUiSession?>(new ViewSession(new UiView(surface, root), owner));
 	}
+
+	internal IReadOnlyList<MetronomeWidget> GetOpenWidgets() => [.. _openWidgets.Keys];
 
 	private bool IsMetronomeConfig(UiSurface surface)
 		=> surface.Kind == UiSurfaceKinds.Config
@@ -131,4 +144,13 @@ public sealed class PluginIntegration : IPluginIntegration, IWidgetTypeProvider,
 			&& type.GetString() == _metronomeTypeId;
 
 	public Task ShutdownAsync() => Task.CompletedTask;
+
+	private sealed class OpenWidget(ConcurrentDictionary<MetronomeWidget, byte> openWidgets, MetronomeWidget widget) : IDisposable
+	{
+		public void Dispose()
+		{
+			openWidgets.TryRemove(widget, out _);
+			widget.Dispose();
+		}
+	}
 }

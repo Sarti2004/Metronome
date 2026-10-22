@@ -3,7 +3,7 @@
   "manifestVersion": 1,
   "id": "com.sarti2004.metronome",
   "name": "Metronome",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Simple metronome widget for Macro Deck.",
   "homepage": "https://github.com/Sarti2004/Metronome",
   "repository": "https://github.com/Sarti2004/Metronome.git",

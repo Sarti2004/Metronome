@@ -49,4 +49,34 @@
   <data name="Widgets.Metronome.Sounds.HiHat" xml:space="preserve">
     <value>Hi-hat</value>
   </data>
+  <data name="Actions.SetTempo.Name" xml:space="preserve">
+    <value>Set tempo</value>
+  </data>
+  <data name="Actions.SetTempo.Description" xml:space="preserve">
+    <value>Sets the metronome tempo (bpm)</value>
+  </data>
+  <data name="Actions.SetTempo.Tempo.Label" xml:space="preserve">
+    <value>Tempo (BPM)</value>
+  </data>
+  <data name="Actions.StartStop.Name" xml:space="preserve">
+    <value>Start/stop metronome</value>
+  </data>
+  <data name="Actions.StartStop.Description" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Actions.StartStop.Command.Label" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="Actions.StartStop.Commands.Toggle" xml:space="preserve">
+    <value>Toggle</value>
+  </data>
+  <data name="Actions.StartStop.Commands.Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Actions.StartStop.Commands.Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Actions.NoOpenMetronome" xml:space="preserve">
+    <value>No open metronome widgets.</value>
+  </data>
 </root>
